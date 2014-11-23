@@ -12,6 +12,9 @@
 　・よく使う Vim のコマンドまとめ
 　　http://qiita.com/hide/items/5bfe5b322872c61a6896
 
+・serverspec
+　http://blog.glidenote.com/blog/2014/06/17/serverspec-snippets/
+
 ############# QOF系 ##########
 　・ゲーム＠直也さん
 　　https://codeiq.jp/magazine/2014/10/16979/
@@ -20,9 +23,16 @@
 ・コマンドライン環境作り #iTerm2 #tmux #zsh
 　https://codeiq.jp/magazine/2014/01/5143/
 
+http://qiita.com/syui/items/c1a1567b2b76051f50c4
 
+https://wiki.archlinux.org/index.php/Zsh_%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29
 #####################
 
 リソナ
 成増普通
 6573923
+
+##########################
+
+~/.zsh/zsh-syntax-highlighting/highlighters/main/main-highlighter.zsh
+: ${ZSH_HIGHLIGHT_STYLES[alias]:=fg=green,bold}

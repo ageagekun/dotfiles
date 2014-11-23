@@ -547,3 +547,9 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 
 fpath=(~/zsh-completions/src $fpath)
 #export PATH=/usr/local/lib/cw:$PATH
+
+if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  fi
+fi
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
