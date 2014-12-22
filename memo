@@ -1,3 +1,24 @@
+############# CHEF系 #########
+Chef::Recipeをオープンクラス。
+attr_accessor source_recipe_name?
+
+class Chef
+  class RunContext
+    #TODO 何か考える
+    def include_recipe(*recipe_names)
+      result_recipes = Array.new
+      recipe_names.flatten.each do |recipe_name|
+        if result = load_recipe(recipe_name)
+          result.good_recipe_name = good_recipe_name if result.is_a?(Chef::Recipe)
+          result_recipes << result
+        end
+      end
+      result_recipes
+    end
+  end
+end
+
+
 ############# WISH系 #########
 　・化粧水
 　・電源タップ(浴槽の)
