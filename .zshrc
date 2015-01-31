@@ -2,6 +2,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export PATH=/opt/local/bin:/opt/local/sbin/:~/bin:$PATH
+export HISTFILE=~/.zsh_history
 # osx alias
 alias pbc='pbcopy'
 # Terminal Colorの設定
@@ -340,9 +341,6 @@ if [ -f ~/.dir_colors ]; then
     eval `dircolors -b ~/.dir_colors`
 fi
 # ls
-alias ls='ls'
-alias la='ls -al'
-alias ll='ls -l'
 #alias la='ls -al --show-control-char --color=always'
 #alias ls='ls --show-control-char --color=always'
 #alias ll='ls -l --show-control-char --color=always'
@@ -537,7 +535,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 #補完でカラーを使用する
 autoload colors
-zstyle ':completion:*' list-colors "${LS_COLORS}"
+#zstyle ':completion:*' list-colors "${LS_COLORS}"
 
 #kill の候補にも色付き表示
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
@@ -548,8 +546,50 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 fpath=(~/zsh-completions/src $fpath)
 #export PATH=/usr/local/lib/cw:$PATH
 
+#zle_highlight=(default:fg=blue isearch:bold,fg=red)
+#highlight_first_five_characters() {
+#  region_highlight=('0 5 bold,fg=red')
+#}
+#zle -N highlight_first_five_characters
+#bindkey '^T'  highlight_first_five_characters
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  fi
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+#ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+#
+#${ZSH_HIGHLIGHT_STYLES[bracket-error]:=fg=blue,bold}
+bindkey -d  # いったんキーバインドをリセット
+bindkey -e  # emacsモードで使う
+alias diff='colordiff -u'
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+
+eval $(dircolors ~/.dircolors)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+alias ls='ls --color=auto'
+alias la='ls -al'
+alias ll='ls -l'
+
+
+export PGDATA="/usr/local/var/postgres"
+
+function do_enter() {
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+    echo
+    hostname
+    pwd
+    ls
+    # ↓おすすめ
+    # ls_abbrev
+    #if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+    #    echo
+    #    echo -e "\e[0;33m--- git status ---\e[0m"
+    #    git status -sb
+    #fi
+    zle reset-prompt
+    return 0
+}
+zle -N do_enter
+bindkey '^X' do_enter

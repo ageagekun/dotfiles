@@ -23,11 +23,12 @@ NeoBundle 'elzr/vim-json' " JSON用シンタックスハイライト系
 NeoBundle 'othree/html5.vim' " ndlehtmlファイル編集
 "Neobundle 'kien/ctrlp.vim'
 ""NeoBundle 'https://bitbucket.org/kovisoft/slimv'
-"NeoBundle "h1mesuke/vim-alignta.vim"
+NeoBundle "h1mesuke/vim-alignta.vim"
 NeoBundle 'The-NERD-tree'
 NeoBundle 'taglist.vim'
 NeoBundle 'https://github.com/wesleyche/SrcExpl.git'
 NeoBundle 'https://github.com/wesleyche/Trinity.git'
+NeoBundle 'glidenote/serverspec-snippets'
 
 filetype plugin indent on     " required!
 filetype indent on
@@ -158,7 +159,7 @@ set showmode                   " 現在のモードを表示
 set modelines=0                " モードラインは無効
 set splitright                 " ウィンドウを縦分割すると、新しいウィンドウが現在のウィンドウの右に開かれる。
 set splitbelow                 " ウィンドウを横分割すると、新しいウィンドウが現在のウィンドウの下に開かれる。
-set clipboard+=autoselect
+"set clipboard+=autoselect
 set guioptions+=a
 set guioptions-=T
 " Ev/Rvでvimrcの編集と反映
@@ -345,3 +346,10 @@ nnoremap sq :<C-u>CtrlPQuickfix<CR>
 nnoremap ss :<C-u>CtrlPMixed<CR>
 nnoremap st :<C-u>CtrlPTag<CR>
 
+"autocmd BufNewFile,BufRead *_spec.rb set syntax=rspec
+"
+"let g:neosnippet#snippets_directory = [
+"      \'~/.vim/snippets',
+"      \'~/.vim/bundle/serverspec-snippets',
+"      \]
+set mouse=
