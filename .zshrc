@@ -578,6 +578,7 @@ function do_enter() {
         return 0
     fi
     echo
+    date
     hostname
     pwd
     ls
