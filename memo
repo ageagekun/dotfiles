@@ -19,28 +19,6 @@ class Chef
 end
 
 
-############# ふるさと納税系 #########
-◆単身編。
-　・給料収入：600万
-　・寄付金額目安：78,000円
-　・税の軽減額：76,000円
-
-◆寄付先
-　・長野県 大町市：5000円→2000円分のクオカード(※クレジットカード支払いなし)
-　・長野県 飯山市：20000円 21.5型ディスプレイ(http://goo.gl/eWgYCG)
-　・長野県 飯山市：30000円 23.0型ディスプレイ(http://goo.gl/dyGnKF)
-
-大分県中津市
-佐賀県玄海町
-北海道上士幌町
-榛東村
-宮崎県綾町
-茨城県石岡市
-
-############# TODO系 #########
-　・家賃振込
-　・書類提出
-
 ############# VIM系 #########
 　・よく使う Vim のコマンドまとめ
 　　http://qiita.com/hide/items/5bfe5b322872c61a6896
@@ -61,11 +39,6 @@ http://qiita.com/syui/items/c1a1567b2b76051f50c4
 https://wiki.archlinux.org/index.php/Zsh_%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29
 #####################
 
-リソナ
-成増普通
-6573923
-
-##########################
 
 ~/.zsh/zsh-syntax-highlighting/highlighters/main/main-highlighter.zsh
 : ${ZSH_HIGHLIGHT_STYLES[alias]:=fg=green,bold}

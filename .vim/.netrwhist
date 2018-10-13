@@ -1,8 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/ageagekun/rails/portal/config/deploy'
-let g:netrw_dirhist_2='/Users/ageagekun/rails/portal/config/environments'
-let g:netrw_dirhist_3='/Users/ageagekun/rails/portal/app/assets/stylesheets'
-let g:netrw_dirhist_4='/Users/ageagekun/slides/reveal.js'
-let g:netrw_dirhist_5='/Users/ageagekun/.zsh'
-let g:netrw_dirhist_6='/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/pry-0.9.12.6'
+let g:netrw_dirhist_cnt =0

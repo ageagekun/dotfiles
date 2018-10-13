@@ -1,6 +1,23 @@
 set nocompatible               " be iMproved
 filetype off
 
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+
+
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
   call neobundle#rc(expand('~/.vim/bundle/'))
@@ -21,14 +38,21 @@ NeoBundle 'tomtom/tcomment_vim' "コメントON/OFFを手軽に実行
 NeoBundle 'vim-scripts/AnsiEsc.vim' "ログファイルを色づけしてくれる
 NeoBundle 'elzr/vim-json' " JSON用シンタックスハイライト系
 NeoBundle 'othree/html5.vim' " ndlehtmlファイル編集
+NeoBundle 'altercation/vim-colors-solarized'
 "Neobundle 'kien/ctrlp.vim'
 ""NeoBundle 'https://bitbucket.org/kovisoft/slimv'
-NeoBundle "h1mesuke/vim-alignta.vim"
+"NeoBundle 'h1mesuke/vim-alignta.vim'
 NeoBundle 'The-NERD-tree'
 NeoBundle 'taglist.vim'
 NeoBundle 'https://github.com/wesleyche/SrcExpl.git'
 NeoBundle 'https://github.com/wesleyche/Trinity.git'
 NeoBundle 'glidenote/serverspec-snippets'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'vim-scripts/diffchar.vim'
+NeoBundle 'exu/pgsql.vim'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'chr4/nginx.vim'
+
 
 filetype plugin indent on     " required!
 filetype indent on
@@ -98,8 +122,7 @@ NeoBundle 'alpaca-tc/alpaca_tags', {
       \   'commands': ['AlpacaTagsUpdate', 'AlpacaTagsSet', 'AlpacaTagsBundle']
       \ }}
 " }}}
-
-
+NeoBundle '29decibel/codeschool-vim-theme'
 
 set runtimepath+=~/.vim/plugin
 "syntax on
@@ -121,6 +144,7 @@ au BufNewFile,BufRead *.html set tabstop=2 shiftwidth=2
 au BufNewFile,BufRead *.rb    set tabstop=2 shiftwidth=2
 au BufNewFile,BufRead *.erb   set tabstop=2 shiftwidth=2
 au BufNewFile,BufRead *.yml   set tabstop=2 shiftwidth=2
+au BufNewFile,BufRead /etc/httpd* set filetype=apache
 "au BufRead,BufNew * match JpSpace /　/
 
 " [Encode]
@@ -174,7 +198,8 @@ set noincsearch
 set hlsearch
 
 " [UI]
-colorscheme molokai
+"colorscheme molokai
+colorscheme hybrid
 set t_Co=256
 "set t_Co=255
 set lcs=tab:>.,eol:$,trail:_,extends:\
@@ -317,7 +342,7 @@ aug RailsDictSetting
 aug END
 "}}}
 
-set clipboard=unnamed,autoselect
+"set clipboard=unnamed,autoselect
 "set noimdisableactivate
 
 set laststatus=2
@@ -353,3 +378,27 @@ nnoremap st :<C-u>CtrlPTag<CR>
 "      \'~/.vim/bundle/serverspec-snippets',
 "      \]
 set mouse=
+set modifiable
+set write
+
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight LineNr ctermbg=none
+
+augroup BinaryXXD
+  autocmd!
+  autocmd BufReadPre  *.bin let &binary =1
+  autocmd BufReadPost * if &binary | silent %!xxd -g 1
+  autocmd BufReadPost * set ft=xxd | endif
+  autocmd BufWritePre * if &binary | %!xxd -r | endif
+  autocmd BufWritePost * if &binary | silent %!xxd -g 1
+  autocmd BufWritePost * set nomod | endif
+augroup END
+
+
+let g:user_emmet_leader_key='<C-X>'
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+"let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+

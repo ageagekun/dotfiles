@@ -1,0 +1,26 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=/home/cn_fukushima/tmux-2.3/libevent-2.0.22-stable/build/lib
+
+session=multi-ssh-`date +%Y%m%d`
+window=multi-ssh
+tmux=/home/cn_fukushima/tmux-2.3/build/bin/tmux
+
+#### 各ホストにsshログイン
+## 最初の1台はsshするだけ
+$tmux send-keys "ssh $1" C-m
+shift
+
+# 残りはpaneを作成してからssh
+for i in $*;do
+  $tmux split-window
+  $tmux select-layout tiled
+  $tmux send-keys "ssh $i" C-m
+done
+
+### 最初のpaneを選択状態にする
+$tmux select-pane -t 0
+
+### paneの同期モードを設定
+#tmux set-window-option synchronize-panes on
+### セッションにアタッチ
+#$tmux attach-session -t $session

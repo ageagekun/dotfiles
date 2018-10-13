@@ -1,7 +1,10 @@
 fpath=(/usr/local/share/zsh-completions $fpath)
 
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH=/opt/local/bin:/opt/local/sbin/:~/bin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin/:$HOME/bin:$PATH
+export PATH=~/go/bin:$PATH
+export GOPATH=~/go
+
 export HISTFILE=~/.zsh_history
 # osx alias
 alias pbc='pbcopy'
@@ -10,22 +13,23 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # vim
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+export EDITOR=vim
+#alias vim=/usr/local/bin/vim
 
 # Color
 #
-DEFAULT=$'%{\e[1;0m%}'
-RESET="%{${reset_color}%}"
-#GREEN=$'%{\e[1;32m%}'
-GREEN="%{${fg[green]}%}"
-#BLUE=$'%{\e[1;35m%}'
-BLUE="%{${fg[blue]}%}"
-RED="%{${fg[red]}%}"
-CYAN="%{${fg[cyan]}%}"
-WHITE="%{${fg[white]}%}"
-
+#DEFAULT=$'%{\e[1;0m%}'
+#RESET="%{${reset_color}%}"
+##GREEN=$'%{\e[1;32m%}'
+#GREEN="%{${fg[green]}%}"
+##BLUE=$'%{\e[1;35m%}'
+#BLUE="%{${fg[blue]}%}"
+#RED="%{${fg[red]}%}"
+#CYAN="%{${fg[cyan]}%}"
+#WHITE="%{${fg[white]}%}"
 # 直前のコマンドの終了ステータスが0以外のときは赤くする。
 # ${MY_MY_PROMPT_COLOR}はprecmdで変化させている数値。
 #local MY_COLOR="$ESCX"'%(0?.${MY_PROMPT_COLOR}.31)'m
@@ -111,7 +115,7 @@ limit   coredumpsize    0
 #stty    susp    '^Z'        # Ctrl+Z にサスペンド
 
 # zsh のキーバインド (EDITOR=vi かでも判断)
-#bindkey -e    # emacs 風
+bindkey -e    # emacs 風
 #bindkey -v     # vi 風
 #zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init # 初期状態をコマンドモード
 #bindkey "^?" backward-delete-char
@@ -157,7 +161,7 @@ setopt prompt_subst          # プロンプトに escape sequence (環境変数)
 unsetopt promptcr            # 改行のない出力をプロンプトで上書きするのを防ぐ
 autoload -U colors        # プロンプトのカラー表示を有効
 colors                    # → 色指定  $fg[色名]/$bg[色名]/$reset_color (${, $} で囲む必要がある)
-#            30黒 31赤 32緑 33黄 34青 35紫 36水 37白
+                          #            30黒 31赤 32緑 33黄 34青 35紫 36水 37白
 
 #setopt extended_history      # 履歴ファイルに開始時刻と経過時間を記録
 unsetopt extended_history
@@ -167,7 +171,7 @@ setopt share_history         # 履歴の共有
 setopt hist_ignore_all_dups  # 重複するコマンド行は古い方を削除
 setopt hist_ignore_dups      # 直前と同じコマンドラインはヒストリに追加しない
 setopt hist_ignore_space     # スペースで始まるコマンド行はヒストリリストから削除
-# (→ 先頭にスペースを入れておけば、ヒストリに保存されない)
+                             # (→ 先頭にスペースを入れておけば、ヒストリに保存されない)
 unsetopt hist_verify         # ヒストリを呼び出してから実行する間に一旦編集可能を止める
 setopt hist_reduce_blanks    # 余分な空白は詰めて記録
 setopt hist_save_no_dups     # ヒストリファイルに書き出すときに、古いコマンドと同じものは無視する。
@@ -181,7 +185,7 @@ setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を�
 setopt mark_dirs             # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
 setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 unsetopt menu_complete       # 補完の際に、可能なリストを表示してビープを鳴らすのではなく、
-# 最初にマッチしたものをいきなり挿入、はしない
+                             # 最初にマッチしたものをいきなり挿入、はしない
 setopt auto_list             # ^Iで補完可能な一覧を表示する(補完候補が複数ある時に、一覧表示)
 setopt auto_menu             # 補完キー連打で順に補完候補を自動で補完
 setopt auto_param_keys       # カッコの対応などを自動的に補完
@@ -204,7 +208,7 @@ unsetopt flow_control        # (shell editor 内で) C-s, C-q を無効にする
 setopt no_flow_control       # C-s/C-q によるフロー制御を使わない
 setopt hash_cmds             # 各コマンドが実行されるときにパスをハッシュに入れる
 setopt no_hup                # ログアウト時にバックグラウンドジョブをkillしない
-setopt ignore_eof            # C-dでログアウトしない
+#setopt ignore_eof            # C-dでログアウトしない
 #setopt no_checkjobs          # ログアウト時にバックグラウンドジョブを確認しない
 
 setopt long_list_jobs        # 内部コマンド jobs の出力をデフォルトで jobs -L にする
@@ -238,6 +242,7 @@ setopt no_unset              # 未定義変数の使用禁止
 #setopt print_exit_value      # 戻り値が 0 以外の場合終了コードを表示
 #setopt single_line_zle       # デフォルトの複数行コマンドライン編集ではなく、１行編集モードになる
 #setopt xtrace                # コマンドラインがどのように展開され実行されたかを表示する
+setopt HIST_IGNORE_DUPS
 
 # カレントディレクトリ中にサブディレクトリが無い場合に cd が検索するディレクトリのリスト
 cdpath=($HOME)
@@ -245,6 +250,22 @@ cdpath=($HOME)
 #fpath=($fpath ~/.zfunc )
 
 #####################################################################
+#####################################################################
+# functions
+#####################################################################
+#-------------------------------------------------------
+# cd && ls
+#function cd() {builtin cd $@ && ls -aF --show-control-char --color=auto}
+function cd () {               # ファイルを探して、そのファイルのある場所にcd
+    if [ $# = 0 ]; then        #    % locate something.c
+        builtin cd             #        /usr/local/.../something.c
+    elif [ -f $1 ]; then       #    % cd `!!`
+        builtin cd $1:h
+    else
+        builtin cd $*
+    fi
+    ls -aF --show-control-char --color=auto
+}
 # aliases
 #####################################################################
 # ゴミ箱
@@ -261,7 +282,6 @@ alias pd="pushd"
 alias po="popd"
 alias eng='LANG=C LANGUAGE=C LC_ALL=C'
 alias zcompile='zcompile ~/.zshrc'
-alias sc='screen'
 
 # よく間違えるもの
 alias dc='cd'
@@ -269,6 +289,7 @@ alias bc='cd'
 
 #alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 alias cl='clear'
+#alias dircl='eval `dircolors ~/.dir_colors -b`'  ## for RedHat (FedoraCore)
 alias q='exit';
 alias e='exit';
 alias quit='exit';
@@ -294,32 +315,17 @@ alias gq='gqview'
 alias howm='vim -c Howm'
 alias cha='vim -c Changelog'
 
-# a2ps (日本語表示のため)
-alias a2ps='a2ps --encoding=euc-jp'
-
-# vnc server
-alias vncstart='vncserver -geometry 1024x768 :1'
-alias vnckill='vncserver -kill :1'
-
 # midnight commander
 alias mc='mc -da'
 
 # grep 行数, 再帰的, ファイル名表示, 行数表示, バイナリファイルは処理しない
-alias grep='grep -i -r'
+alias grep='grep -r --color=auto'
 #alias grep='grep -r'
 
 # development
 alias py='python'
 alias gdb='gdb -silent'
 alias gpp='g++'
-
-# namazu + w3m
-#alias updatenmz='mknmz -a -O ~/.howm ~/Memo
-alias updatenmz='mknmz -O ~/.howm ~/Memo/'
-alias sr='srnmz'
-alias s='srnmz'
-
-# 今迄の履歴を簡単に辿る
 alias gd='dirs -v; echo -n "select number: "; read newdir; cd +"$newdir"' # AUTO_PUSHD が必要
 # dirs -v  --  ディレクトリスタックを表示
 
@@ -333,26 +339,23 @@ alias -g T='| tail'
 # 個人設定
 alias e='exit'
 alias di='diff'
+alias python='/usr/local/bin/python3'
 
-
-# colore-ls
-# 個人カラー設定のロード
 if [ -f ~/.dir_colors ]; then
-    eval `dircolors -b ~/.dir_colors`
+   eval `dircolors -b ~/.dir_colors`
 fi
 # ls
-#alias la='ls -al --show-control-char --color=always'
-#alias ls='ls --show-control-char --color=always'
-#alias ll='ls -l --show-control-char --color=always'
-#alias l.='ls -d .[a-zA-Z]* --color=always'
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # 補完候補を色分け (GNU ls の色定義を流用)
+eval $(dircolors ~/.dircolors)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+alias ls='ls --color=auto'
+alias la='ls -al'
+alias ll='ls -l'
 
 # subversion
 alias svnst='svn st |grep -v "外部"|grep " "'
 alias sudo='sudo env PATH=$PATH'
 
 setopt autopushd
-## 色を使う
 setopt prompt_subst
 
 ## 補完候補の色づけ
@@ -363,10 +366,10 @@ setopt prompt_subst
 #export ZLS_COLORS=$LS_COLORS
 #zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+############ ruby ###########
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/shims:$PATH"
 eval "$(rbenv init -)"
-
 
 alias ls='ls -GF'
 
@@ -412,16 +415,8 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 #PROMPT='%B%{${fg[red]}%} $PS1_USER%{${fg[green]}%}@$(cat /var/run/ip_addr)${WINDOW:+":$WINDOW"}]%{%(?.$fg[yellow].$fg[red])%}%(!.#.$)%{${reset_color}%}%b '
 #export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 #alias ls='ls -1 --color=auto'
-
-#[alias]
-#  co = checkout
-#  ci = commit
-#  br = branch
-#  st = status
 alias st="status"
-
-# For Mac?
-alias ctags="/usr/local/bin/ctags" # -R -a --sort=yes --exclude=*.js --exclude=*.h --exclude=log"
+alias gitst='git st'
 
 # tmux
 #alias tmux='tmuxx'
@@ -431,25 +426,14 @@ alias ctags="/usr/local/bin/ctags" # -R -a --sort=yes --exclude=*.js --exclude=*
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-# PATHに依る
-#alias rtags='ctags -R -a --sort=yes --exclude=*.js --exclude=*.h --exclude=log --exclude=*.yml --exclude=.git --langmap=RUBY:.rb ~/.rbenv/versions/1.9.3-p385/lib/ruby/1.9.1'
-#alias gtags='ctags -R -a --sort=yes --exclude=*.js --exclude=*.exp  --exclude=*.am --exclude=*.in --exclude=*.m4--exclude=*.o --exclude=*.h --exclude=log --exclude=*.yml --exclude=.git --langmap=RUBY:.rb ~/.rbenv/versions/1.9.3-p385/lib/ruby/gems/1.9.1/gems'
-
-# ctags -R -a --sort=yes --exclude="*.py" --exclude="*.java" --exclude="*.vim" --exclude="*.cpp" --exclude="*.c" --exclude="*.el" --exclude="*.js" --exclude="*.h" --exclude=log --exclude="*.yml" --exclude="*.git" --langmap=RUBY:.rb ~/.rbenv/versions/1.9.3-p385/lib/ruby/1.9.1 ~/
-# ctags -R -a --sort=yes --append=yes --recurse=yes --langmap=RUBY:+.rb --ruby-kinds=cfd ~/.rbenv/versions/1.9.3-p385/lib/ruby/1.9.1 ~/
-
 setopt auto_pushd
 setopt pushd_ignore_dups
-setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt auto_param_slash
 #alias cd='pushd'
 alias bd='popd'
 
-# ディレクトリを切り替える時の色々な補完スタイル
-#あらかじめcdpathを適当に設定しておく
-cdpath=($HOME ~/rails/portal/)
 # カレントディレクトリに候補がない場合のみ cdpath 上のディレクトリを候補に出す
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-
 
 # ホスト毎にホスト名の部分の色を作る http://absolute-area.com/post/6664864690/zsh
 
@@ -473,6 +457,7 @@ zstyle ':completion:*:cd:*' tag-order local-directories path-directories
 #esac
 ##RPROMPT='%{[1;31m%}$df%{[0;37m%}'
 
+alias diff='colordiff -u'
 colors=(
     ## 気に入らない色はコメントアウト
     # $'%{\e[0;30m%}' # black
@@ -594,3 +579,67 @@ function do_enter() {
 }
 zle -N do_enter
 bindkey '^X' do_enter
+
+export HISTSIZE=1000
+export SAVEHIST=100000
+setopt hist_ignore_dups
+setopt EXTENDED_HISTORY
+setopt share_history
+
+zstyle ':completion:*:default' menu select=2
+#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+#
+#export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
+#export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
+#zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+
+
+############## man ##############
+export LESS='-g -i -M -R -S -z-4 -x4'
+export PAGER=less
+
+#export LESS_TERMCAP_mb=$'\E[01;31m'      # Begins blinking.
+#export LESS_TERMCAP_md=$'\E[01;31m'      # Begins bold.
+#export LESS_TERMCAP_me=$'\E[0m'          # Ends mode.
+#export LESS_TERMCAP_se=$'\E[0m'          # Ends standout-mode.
+#export LESS_TERMCAP_so=$'\E[00;47;30m'   # Begins standout-mode.
+#export LESS_TERMCAP_ue=$'\E[0m'          # Ends underline.
+#export LESS_TERMCAP_us=$'\E[01;32m'      # Begins underline.
+
+export LESS_TERMCAP_mb=$(printf "\e[1;31m")      # Begins blinking.
+export LESS_TERMCAP_md=$(printf "\e[1;31m")      # Begins bold.
+export LESS_TERMCAP_me=$(printf "\e[0m")         # Ends mode.
+export LESS_TERMCAP_se=$(printf "\e[0m")         # Ends standout-mode.
+export LESS_TERMCAP_so=$(printf "\e[00;47;30m")  # Begins standout-mode.
+export LESS_TERMCAP_ue=$(printf "\e[0m")         # Ends underline.
+export LESS_TERMCAP_us=$(printf "\e[1;32m")      # Begins underline.
+
+if [ -e $(which src-hilite-lesspipe.sh) ]; then
+  export LESSOPEN="| $(which src-hilite-lesspipe.sh) %s"
+fi
+#export LESSOPEN='| /usr/bin/src-hilite-lesspipe.sh %s'
+
+#source ~/git/git-completion.bash
+#source ~/git/git-prompt.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ageagekun/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/ageagekun/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ageagekun/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/ageagekun/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+function peco-history-selection() {
+  #BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+  BUFFER="$(history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
+  CURSOR=$#BUFFER
+  #zle reset-prompt
+  zle -R -c
+}
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+# Ctrl+Wをスラッシュ等区切りへ
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
